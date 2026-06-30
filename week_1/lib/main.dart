@@ -4,6 +4,7 @@ import 'package:week_1/screens/screen2.dart';
 import 'package:week_1/screens/screen3.dart';
 import 'package:week_1/screens/screen4.dart';
 import 'package:week_1/screens/screen5.dart';
+import 'package:week_1/screens/screen_n.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Screen5(), // Select screens 1-6
+      home: Screen_N(), // Select screens 1-6
     );
   }
 }
