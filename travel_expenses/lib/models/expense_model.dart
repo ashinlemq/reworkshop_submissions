@@ -16,5 +16,5 @@ class Expense {
     required this.amount,
     required this.date,
     required this.category,
-  }) : id == uuid.v4(); // Auto assigns unique string ID on creation
+  }) : id = uuid.v4(); // Auto assigns unique string ID on creation
 }
