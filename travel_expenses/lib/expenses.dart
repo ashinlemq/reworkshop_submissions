@@ -27,9 +27,17 @@ class _ExpensesState extends State<Expenses> {
     ),
   ];
 
+  void _openAddExpenseItemOverlay() {
+    showModalBottomSheet(context: context, builder: (modalContext) => const Text("Modal Content Here"));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          title: Text("Travel Expenses"),
+          actions: [IconButton(onPressed: _openAddExpenseItemOverlay, icon: Icon(Icons.add))]
+      ),
       body: SafeArea(
         child: Center(
           child: Column(
