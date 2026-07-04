@@ -30,12 +30,15 @@ class _ExpensesState extends State<Expenses> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Expanded(child: ExpensesList(allExpenses: _myExpenses)),
-          ],
+
+      body: SafeArea(
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Expanded(child: ExpensesList(allExpenses: _myExpenses)),
+            ],
+          ),
         ),
       ),
     );

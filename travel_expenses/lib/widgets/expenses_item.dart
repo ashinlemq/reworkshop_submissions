@@ -9,12 +9,16 @@ class ExpenseItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        mainAxisSize: .min,
-        children: [
-          Text(expense.name)
-        ],
-      ),
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        child: Column(
+          mainAxisSize: .min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(expense.name),
+            )
+          ],
+        ),
     );
   }
 }
