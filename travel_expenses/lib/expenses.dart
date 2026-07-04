@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:travel_expenses/widgets/expenses_list.dart';
+import 'package:travel_expenses/widgets/new_expense.dart';
 import 'models/expense_model.dart';
 
 class Expenses extends StatefulWidget {
@@ -28,23 +29,30 @@ class _ExpensesState extends State<Expenses> {
   ];
 
   void _openAddExpenseItemOverlay() {
-    showModalBottomSheet(context: context, builder: (modalContext) => const Text("Modal Content Here"));
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      builder: (modalContext) => NewExpense(),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text("Travel Expenses"),
-          actions: [IconButton(onPressed: _openAddExpenseItemOverlay, icon: Icon(Icons.add))]
+        title: Text("Travel Expenses"),
+        actions: [
+          IconButton(
+            onPressed: _openAddExpenseItemOverlay,
+            icon: Icon(Icons.add),
+          ),
+        ],
       ),
       body: SafeArea(
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [
-              Expanded(child: ExpensesList(allExpenses: _myExpenses)),
-            ],
+            children: [Expanded(child: ExpensesList(allExpenses: _myExpenses))],
           ),
         ),
       ),
