@@ -41,6 +41,8 @@ class _NewExpenseState extends State<NewExpense> {
     return Padding(
       padding: EdgeInsets.all(20),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        spacing: 20,
         children: [
           TextField(
             controller: _titleController,
@@ -59,7 +61,6 @@ class _NewExpenseState extends State<NewExpense> {
                   ),
                 ),
               ),
-              SizedBox(width: 20),
               Row(
                 children: [
                   Text(_chosenDate == null
@@ -74,7 +75,13 @@ class _NewExpenseState extends State<NewExpense> {
               ),
             ],
           ),
-          SizedBox(height: 20),
+          Row(
+            spacing: 10,
+            children: [
+              Text("Expense Category"),
+            ],
+          ),
+          SizedBox(height: 10),
           Row(
             spacing: 20,
             children: [
