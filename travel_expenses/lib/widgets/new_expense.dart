@@ -15,6 +15,7 @@ class _NewExpenseState extends State<NewExpense> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
   DateTime? _chosenDate;
+  Category _chosenCategory = Category.food;
 
   @override
   void dispose() {
@@ -63,9 +64,10 @@ class _NewExpenseState extends State<NewExpense> {
               ),
               Row(
                 children: [
-                  Text(_chosenDate == null
-                    ? 'Pick Date'
-                      : formatter.format(_chosenDate!),
+                  Text(
+                    _chosenDate == null
+                        ? 'Pick Date'
+                        : formatter.format(_chosenDate!),
                   ),
                   IconButton(
                     onPressed: _openDatePicker,
@@ -79,6 +81,23 @@ class _NewExpenseState extends State<NewExpense> {
             spacing: 10,
             children: [
               Text("Expense Category"),
+              DropdownButton<Category>(
+                value: _chosenCategory,
+                items: Category.values
+                    .map(
+                      (category) => DropdownMenuItem(
+                        value: category,
+                        child: Text(category.name),
+                      ),
+                    )
+                    .toList(),
+                onChanged: (value) {
+                  if (value == null) return;
+                  setState(() {
+                    _chosenCategory = value;
+                  });
+                },
+              ),
             ],
           ),
           SizedBox(height: 10),
@@ -88,7 +107,7 @@ class _NewExpenseState extends State<NewExpense> {
               ElevatedButton(
                 onPressed: () {
                   print(
-                    "Title: ${_titleController.text} \nAmount: \$${_amountController.text}",
+                    "Title: ${_titleController.text} \nAmount: \$${_amountController.text} \nDate: $_chosenDate \nCategory: $_chosenCategory",
                   );
                 },
                 child: Text("Save Expense"),
