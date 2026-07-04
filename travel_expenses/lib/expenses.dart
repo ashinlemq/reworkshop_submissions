@@ -30,7 +30,6 @@ class _ExpensesState extends State<Expenses> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: SafeArea(
         child: Center(
           child: Column(
