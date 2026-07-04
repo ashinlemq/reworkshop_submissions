@@ -28,9 +28,9 @@ class Expense {
     required this.date,
     required this.category,
   }) : id = uuid.v4(); // Auto assigns unique string ID on creation
+
+  String get formattedDate {
+    return formatter.format(date);
+  }
 }
 
-String get formattedDate {
-  DateTime date = DateTime.now();
-  return formatter.format(date);
-}

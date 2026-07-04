@@ -20,7 +20,8 @@ class ExpenseItem extends StatelessWidget {
               subtitle: Row(
                 children: [
                   Icon(Icons.fastfood),
-                  Text(expense.date.toString()),
+                  SizedBox(width: 5,),
+                  Text(formatter.format(expense.date)),
                 ],
               ),
             ),

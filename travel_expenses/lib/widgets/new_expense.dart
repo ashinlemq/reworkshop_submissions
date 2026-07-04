@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 
+import '../models/expense_model.dart';
+
 class NewExpense extends StatefulWidget {
+  const NewExpense({super.key});
+
+  @override
   State<NewExpense> createState() {
     return _NewExpenseState();
   }
@@ -9,12 +14,26 @@ class NewExpense extends StatefulWidget {
 class _NewExpenseState extends State<NewExpense> {
   final _titleController = TextEditingController();
   final _amountController = TextEditingController();
+  DateTime? _chosenDate;
 
   @override
   void dispose() {
     _titleController.dispose();
     _amountController.dispose();
     super.dispose();
+  }
+
+  void _openDatePicker() async {
+    final now = DateTime.now();
+    final firstDate = DateTime(now.year - 2, now.month, now.day);
+    final selectedDate = await showDatePicker(
+      context: context,
+      firstDate: firstDate,
+      lastDate: now,
+    );
+    setState(() {
+      _chosenDate = selectedDate;
+    });
   }
 
   @override
@@ -28,15 +47,34 @@ class _NewExpenseState extends State<NewExpense> {
             maxLength: 40,
             decoration: InputDecoration(label: Text('Expense Title')),
           ),
-          TextField(
-            controller: _amountController,
-            keyboardType: TextInputType.number,
-            decoration: InputDecoration(
-              prefixText: '\$',
-              label: Text("Expense Amount"),
-            ),
+          Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _amountController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    prefixText: '\$',
+                    label: Text("Expense Amount"),
+                  ),
+                ),
+              ),
+              SizedBox(width: 20),
+              Row(
+                children: [
+                  Text(_chosenDate == null
+                    ? 'Pick Date'
+                      : formatter.format(_chosenDate!),
+                  ),
+                  IconButton(
+                    onPressed: _openDatePicker,
+                    icon: Icon(Icons.calendar_month),
+                  ),
+                ],
+              ),
+            ],
           ),
-          const SizedBox(height: 20),
+          SizedBox(height: 20),
           Row(
             spacing: 20,
             children: [
@@ -48,7 +86,12 @@ class _NewExpenseState extends State<NewExpense> {
                 },
                 child: Text("Save Expense"),
               ),
-              ElevatedButton(onPressed: () { Navigator.pop(context); }, child: const Text("Cancel")),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: const Text("Cancel"),
+              ),
             ],
           ),
         ],
