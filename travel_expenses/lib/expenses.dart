@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:travel_expenses/widgets/chart/chart.dart';
 import 'package:travel_expenses/widgets/expenses_list.dart';
 import 'package:travel_expenses/widgets/new_expense.dart';
 import 'models/expense_model.dart';
@@ -58,14 +59,15 @@ class _ExpensesState extends State<Expenses> {
           onPressed: () {
             setState(() {
               _myExpenses.insert(
-                  expenseIndex, expense); // Reinserts item at original spot
+                expenseIndex,
+                expense,
+              ); // Reinserts item at original spot
             });
           },
         ),
       ),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -84,7 +86,15 @@ class _ExpensesState extends State<Expenses> {
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [Expanded(child: ExpensesList(allExpenses: _myExpenses, onRemoveExpense: _removeExpense))],
+            children: [
+              Chart(expenses: _myExpenses),
+              Expanded(
+                child: ExpensesList(
+                  allExpenses: _myExpenses,
+                  onRemoveExpense: _removeExpense,
+                ),
+              ),
+            ],
           ),
         ),
       ),
