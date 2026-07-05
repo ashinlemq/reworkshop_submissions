@@ -28,13 +28,44 @@ class _ExpensesState extends State<Expenses> {
     ),
   ];
 
+  void _addExpense(Expense expense) {
+    setState(() {
+      _myExpenses.add(expense);
+    });
+  }
+
   void _openAddExpenseItemOverlay() {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (modalContext) => NewExpense(),
+      builder: (modalContext) => NewExpense(onaddExpense: _addExpense),
     );
   }
+
+  void _removeExpense(Expense expense) {
+    final expenseIndex = _myExpenses.indexOf(expense);
+
+    setState(() {
+      _myExpenses.remove(expense);
+    });
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: const Text('Expense deleted.'),
+        duration: const Duration(seconds: 3),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            setState(() {
+              _myExpenses.insert(
+                  expenseIndex, expense); // Reinserts item at original spot
+            });
+          },
+        ),
+      ),
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {

@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import '../models/expense_model.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({super.key});
+  NewExpense({super.key, required this.onaddExpense});
+  void Function (Expense newExpense) onaddExpense;
 
   @override
   State<NewExpense> createState() {
@@ -35,6 +36,36 @@ class _NewExpenseState extends State<NewExpense> {
     setState(() {
       _chosenDate = selectedDate;
     });
+  }
+
+  void _saveExpenses() {
+    final enteredAmount = double.tryParse(_amountController.text);
+    final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
+
+    if (
+    _titleController.text.trim().isEmpty || amountIsInvalid || _chosenDate == null
+    ) {
+      showDialog(
+        context: context,
+        builder: (dialogContext) => AlertDialog(
+          title: Text('Invalid Input'),
+          content: Text('Please make sure a valid name, amount, and date are chosen'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(dialogContext);
+              },
+              child: const Text('Okay'),
+            ),
+          ],
+        ),
+      );
+      return;
+    }
+    widget.onaddExpense(
+      Expense(name: _titleController.text, amount: double.parse(_amountController.text), date: _chosenDate!, category: _chosenCategory),
+    );
+    Navigator.pop(context);
   }
 
   @override
@@ -87,7 +118,7 @@ class _NewExpenseState extends State<NewExpense> {
                     .map(
                       (category) => DropdownMenuItem(
                         value: category,
-                        child: Text(category.name),
+                        child: Text(category.name.toUpperCase()),
                       ),
                     )
                     .toList(),
@@ -109,6 +140,7 @@ class _NewExpenseState extends State<NewExpense> {
                   print(
                     "Title: ${_titleController.text} \nAmount: \$${_amountController.text} \nDate: $_chosenDate \nCategory: $_chosenCategory",
                   );
+                  _saveExpenses();
                 },
                 child: Text("Save Expense"),
               ),
