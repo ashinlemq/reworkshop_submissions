@@ -83,7 +83,7 @@ class _ExpensesState extends State<Expenses> {
         child: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
-            children: [Expanded(child: ExpensesList(allExpenses: _myExpenses))],
+            children: [Expanded(child: ExpensesList(allExpenses: _myExpenses, onRemoveExpense: _removeExpense))],
           ),
         ),
       ),
