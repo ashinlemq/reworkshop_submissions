@@ -4,7 +4,8 @@ import '../models/expense_model.dart';
 
 class NewExpense extends StatefulWidget {
   NewExpense({super.key, required this.onaddExpense});
-  void Function (Expense newExpense) onaddExpense;
+
+  void Function(Expense newExpense) onaddExpense;
 
   @override
   State<NewExpense> createState() {
@@ -42,14 +43,16 @@ class _NewExpenseState extends State<NewExpense> {
     final enteredAmount = double.tryParse(_amountController.text);
     final amountIsInvalid = enteredAmount == null || enteredAmount <= 0;
 
-    if (
-    _titleController.text.trim().isEmpty || amountIsInvalid || _chosenDate == null
-    ) {
+    if (_titleController.text.trim().isEmpty ||
+        amountIsInvalid ||
+        _chosenDate == null) {
       showDialog(
         context: context,
         builder: (dialogContext) => AlertDialog(
           title: Text('Invalid Input'),
-          content: Text('Please make sure a valid name, amount, and date are chosen'),
+          content: Text(
+            'Please make sure a valid name, amount, and date are chosen',
+          ),
           actions: [
             TextButton(
               onPressed: () {
@@ -63,13 +66,21 @@ class _NewExpenseState extends State<NewExpense> {
       return;
     }
     widget.onaddExpense(
-      Expense(name: _titleController.text, amount: double.parse(_amountController.text), date: _chosenDate!, category: _chosenCategory),
+      Expense(
+        name: _titleController.text,
+        amount: double.parse(_amountController.text),
+        date: _chosenDate!,
+        category: _chosenCategory,
+      ),
     );
     Navigator.pop(context);
   }
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode =
+        MediaQuery.of(context).platformBrightness == Brightness.dark;
+
     return Padding(
       padding: EdgeInsets.all(20),
       child: Column(
@@ -99,6 +110,7 @@ class _NewExpenseState extends State<NewExpense> {
                     _chosenDate == null
                         ? 'Pick Date'
                         : formatter.format(_chosenDate!),
+                    style: TextStyle(color: isDarkMode ? Colors.white : null),
                   ),
                   IconButton(
                     onPressed: _openDatePicker,
@@ -111,14 +123,22 @@ class _NewExpenseState extends State<NewExpense> {
           Row(
             spacing: 10,
             children: [
-              Text("Expense Category"),
+              Text(
+                "Expense Category",
+                style: TextStyle(color: isDarkMode ? Colors.white : null),
+              ),
               DropdownButton<Category>(
                 value: _chosenCategory,
                 items: Category.values
                     .map(
                       (category) => DropdownMenuItem(
                         value: category,
-                        child: Text(category.name.toUpperCase()),
+                        child: Text(
+                          category.name.toUpperCase(),
+                          style: TextStyle(
+                            color: isDarkMode ? Colors.white : null,
+                          ),
+                        ),
                       ),
                     )
                     .toList(),
