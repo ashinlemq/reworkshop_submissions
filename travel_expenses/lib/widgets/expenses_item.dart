@@ -11,21 +11,40 @@ class ExpenseItem extends StatelessWidget {
     // following https://api.flutter.dev/flutter/material/Card-class.html
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 32, vertical: 4),
-        child: Column(
-          mainAxisSize: .min,
-          children: [
-            ListTile(
-              leading: Text("\$${expense.amount.toStringAsFixed(2)}", style: TextStyle(fontWeight: FontWeight.bold),),
-              title: Text(expense.name),
-              subtitle: Row(
-                children: [
-                  Icon(Icons.fastfood),
-                  SizedBox(width: 5,),
-                  Text(formatter.format(expense.date)),
-                ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: .min,
+            children: [
+              Text(
+                expense.name,
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
-            ),
-          ],
+              Row(
+                children: [
+                  Text(
+                    '\$${expense.amount.toStringAsFixed(2)}',
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      fontStyle: FontStyle.italic,
+                    ),
+                  ),
+                  const Spacer(),
+                  Row(
+                    children: [
+                      Icon(categoryIcons[expense.category]),
+                      const SizedBox(width: 8),
+                      Text(
+                          expense.formattedDate,
+                          style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                    ],
+                  ),
+                ],
+              )
+
+            ],
+          ),
         ),
     );
   }
