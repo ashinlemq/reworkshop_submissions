@@ -71,6 +71,7 @@ class _ExpensesState extends State<Expenses> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: Text("Travel Expenses"),
         actions: [
           IconButton(
