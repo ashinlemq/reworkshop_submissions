@@ -80,4 +80,12 @@ class ExpenseBucket {
     }
     return sum;
   }
+
+  double sumExpenses(List<Expense> expenses) {
+    double sum = 0;
+    for (var expense in expenses) {
+      sum += expense.amount;
+    }
+    return sum;
+  }
 }
