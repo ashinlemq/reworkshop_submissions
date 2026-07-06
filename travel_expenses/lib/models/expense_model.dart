@@ -29,8 +29,36 @@ class Expense {
     required this.category,
   }) : id = uuid.v4(); // Auto assigns unique string ID on creation
 
+  Expense.load({
+    required this.id,
+    required this.name,
+    required this.amount,
+    required this.date,
+    required this.category,
+  });
+
   String get formattedDate {
     return formatter.format(date);
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'amount': amount,
+      'date': date.toIso8601String(),
+      'category': category.name,
+    };
+  }
+
+  factory Expense.fromJson(Map<String, dynamic> json) {
+    return Expense.load(
+      id: json['id'] as String,
+      name: json['name'] as String,
+      amount: (json['amount'] as num).toDouble(),
+      date: DateTime.parse(json['date'] as String),
+      category: Category.values.firstWhere((e) => e.name == json['category']),
+    );
   }
 }
 
