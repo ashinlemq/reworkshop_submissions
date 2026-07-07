@@ -46,6 +46,12 @@ class _ExpensesState extends State<Expenses> {
             onPressed: _openAddExpenseItemOverlay,
             icon: Icon(Icons.add),
           ),
+          IconButton(
+            onPressed: () {
+              FirebaseAuth.instance.signOut();
+            },
+            icon: const Icon(Icons.logout_rounded),
+          ),
         ],
       ),
       body: Consumer<ExpenseState>(
