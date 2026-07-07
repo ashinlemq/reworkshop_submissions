@@ -1,8 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travel_expenses/widgets/chart/chart.dart';
 import 'package:travel_expenses/widgets/expenses_list.dart';
 import 'package:travel_expenses/widgets/new_expense.dart';
-import 'models/expense_model.dart';
 import 'package:provider/provider.dart';
 import 'package:travel_expenses/providers/expenses_provider.dart';
 
@@ -84,8 +84,16 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    final userEmail = FirebaseAuth.instance.currentUser?.email ?? 'No Email';
+
     return Scaffold(
       appBar: AppBar(
+        leadingWidth: 150,
+        leading: Center(
+          child: Padding(padding: const EdgeInsets.only(left: 8.0),
+          child: Text(userEmail),
+          ),
+        ),
         centerTitle: true,
         title: Text("Travel Expenses"),
         actions: [

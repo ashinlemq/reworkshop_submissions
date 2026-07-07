@@ -74,7 +74,9 @@ class _AuthState extends State<Auth> {
                         email: emailController.text.trim(),
                         password: passwordController.text.trim(),
                       );
-                      if (context.mounted) Navigator.pop(context);
+                      if (context.mounted && Navigator.canPop(context)) {
+                        Navigator.pop(context);
+                      }
                     } on FirebaseAuthException catch (e) {
                       setState(() => errorMessage = e.message);
                     }
@@ -94,7 +96,9 @@ class _AuthState extends State<Auth> {
                         email: emailController.text.trim(),
                         password: passwordController.text.trim(),
                       );
-                      if (context.mounted) Navigator.pop(context);
+                      if (context.mounted && Navigator.canPop(context)) {
+                        Navigator.pop(context);
+                      }
                     } on FirebaseAuthException catch (e) {
                       setState(() => errorMessage = e.message);
                     }

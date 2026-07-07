@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_expenses/expenses.dart';
 import 'package:travel_expenses/providers/expenses_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 
 import 'package:firebase_core/firebase_core.dart';
@@ -47,19 +48,34 @@ Future<void> main() async {
         ),
 
         darkTheme: baseDarkTheme.copyWith(
-          appBarTheme: AppBarTheme(
-            backgroundColor: myDarkColorScheme.onPrimaryContainer,
-            foregroundColor: myDarkColorScheme.primaryContainer,
-          ),
-          cardTheme: CardThemeData(color: myDarkColorScheme.secondaryContainer),
-          textTheme: baseDarkTheme.textTheme.copyWith(
-            headlineSmall: TextStyle(
-              fontSize: 15,
-              color: myDarkColorScheme.onSecondaryContainer,
+            appBarTheme: AppBarTheme(
+              backgroundColor: myDarkColorScheme.onPrimaryContainer,
+              foregroundColor: myDarkColorScheme.primaryContainer,
+            ),
+            cardTheme: CardThemeData(color: myDarkColorScheme.secondaryContainer),
+            textTheme: baseDarkTheme.textTheme.copyWith(
+              headlineSmall: TextStyle(
+                fontSize: 15,
+                color: myDarkColorScheme.onSecondaryContainer,
+              ),
             ),
           ),
-        ),
-        home: Auth(),
+            home: StreamBuilder<User?>(
+              stream: FirebaseAuth.instance.authStateChanges(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Scaffold(
+                    body: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+                }
+                if (snapshot.hasData) {
+                  return const Expenses();
+                }
+                return Auth();
+              },
+            ),
       ),
     ),
   );
