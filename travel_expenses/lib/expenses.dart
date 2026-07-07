@@ -36,7 +36,7 @@ class _ExpensesState extends State<Expenses> {
 
     return Scaffold(
       appBar: AppBar(
-        leadingWidth: 150,
+        leadingWidth: 120,
         leading: Center(
           child: Padding(padding: const EdgeInsets.only(left: 8.0),
           child: Text(userEmail),
@@ -57,17 +57,22 @@ class _ExpensesState extends State<Expenses> {
           ),
         ],
       ),
-      body: Consumer<ExpenseState>(
-        builder: (context, expensesState, child) {
-          return Column(
-            children: [
-              Chart(expenses: expensesState.expenses),
-              Expanded(
-                child: ExpensesList(allExpenses: expensesState.expenses),
-              ),
-            ],
-          );
-        },
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 600),
+          child: Consumer<ExpenseState>(
+            builder: (context, expensesState, child) {
+              return Column(
+                children: [
+                  Chart(expenses: expensesState.expenses),
+                  Expanded(
+                    child: ExpensesList(allExpenses: expensesState.expenses),
+                  ),
+                ],
+              );
+            },
+          ),
+        ),
       ),
     );
   }

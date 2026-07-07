@@ -12,8 +12,7 @@ This week involved the task of creating the basic structure of the app's UI. A n
 Timezone changes were why the commits after this point were at very late times as I had a flight to Bangladesh. Modelling the state file was the biggest task of this week but once that's done, there's a central point for all of the data types which makes future changes much easier.
 
 ## Week 7
-Same pattern as previous weeks but implementing like the totally new chart widget and dropdown widget made this week more challenging. A future bug to fix was how text didn't properly change to white on the dark theme.
-
+Same pattern as previous weeks but implementing like the totally new chart widget and dropdown widget made this week more challenging. A future bug to fix was how text didn't properly change to white on the dark theme. A small note is that the overlay takes up the full screen on mobile but on web that would look off, so only the middle portion is taken.
 ## Week 8
 Following the tutorial for the week, implemented state management which made it so now the data and the transactions are in a central point for the app. State changes don't seem to persist when re-running the browser debug command but do persist when reloading both on web and Android.
 ### Justification for shared_preferences
