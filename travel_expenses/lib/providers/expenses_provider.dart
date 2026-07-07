@@ -4,20 +4,7 @@ import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ExpenseState extends ChangeNotifier {
-  List<Expense> _expenses = [
-    // Expense(
-    //   name: 'Birthday Dinner',
-    //   amount: 300.0,
-    //   date: DateTime.now(),
-    //   category: Category.food,
-    // ),
-    // Expense(
-    //   name: 'Kayaking tour',
-    //   amount: 70.0,
-    //   date: DateTime.now(),
-    //   category: Category.experience,
-    // ),
-  ];
+  List<Expense> _expenses = [];
 
   ExpenseState() {
     _loadExpenses();
