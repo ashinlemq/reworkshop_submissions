@@ -1,5 +1,5 @@
 # travel_expenses
-Any valid email and six letter password can be used to sign in to the app. Tests are present in the `test` folder and secrets are provided in case to test the Firebase features. If auth for whatever reason doesn't work, please replace the code in main.dart with the code in main_no_auth.dart.
+Any valid email and six letter password can be used to sign in to the app. Tests are present in the `test` folder and secrets are provided in case to test the Firebase features. Firebase has been tested to work in both Chrome and Android debugger. If for whatever reason it doesn't, please roll the git back to the last week_9 commit which has no firebase.
 
 Sample login:
 email: test@mail.com
