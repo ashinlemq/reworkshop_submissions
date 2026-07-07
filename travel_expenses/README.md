@@ -1,4 +1,9 @@
 # travel_expenses
+Any valid email and six letter password can be used to sign in to the app. Tests are present in the `test` folder and secrets are provided in case to test the Firebase features. If auth for whatever reason doesn't work, please replace the code in main.dart with the code in main_no_auth.dart.
+
+Sample login:
+email: test@mail.com
+password: 123456
 
 ## Week 5
 This week involved the task of creating the basic structure of the app's UI. A noteworthy detail is the documentation for the built-in Flutter widgets were very helpful to get everything right. E.g. the Cards description and how centering the AppBar title is a predictable boolean.
@@ -10,7 +15,7 @@ Timezone changes were why the commits after this point were at very late times a
 Same pattern as previous weeks but implementing like the totally new chart widget and dropdown widget made this week more challenging. A future bug to fix was how text didn't properly change to white on the dark theme.
 
 ## Week 8
-Following the tutorial for the week, implemented state management which made it so now the data and the transactions are in a central point for the app.
+Following the tutorial for the week, implemented state management which made it so now the data and the transactions are in a central point for the app. State changes don't seem to persist when re-running the browser debug command but do persist when reloading both on web and Android.
 ### Justification for shared_preferences
 Initially, I had used Hive as the local store but quickly found out how it hasn't been supported for a while and newer versions aren't documented well. `shared_preferences` technically shouldn't be used as a datastore, but for an app like this without large blobs of data, it works perfectly. Flutter unfortunately doesn't have much support for simple ORMs like JS has with drizzle for example. So the next best alternative would've been hybrid datastores like Firebase or AppWrite which have offline capabilities. While they would've been fine, it would be a bit bloated as the app can function perfectly offline.
 ## Week 9
