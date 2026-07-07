@@ -7,7 +7,9 @@ import 'package:provider/provider.dart';
 import 'package:travel_expenses/providers/expenses_provider.dart';
 
 class Expenses extends StatefulWidget {
-  const Expenses({super.key});
+  const Expenses({super.key, this.auth});
+
+  final FirebaseAuth? auth;
 
   @override
   State<StatefulWidget> createState() {
@@ -16,6 +18,7 @@ class Expenses extends StatefulWidget {
 }
 
 class _ExpensesState extends State<Expenses> {
+  FirebaseAuth get _auth => widget.auth ?? FirebaseAuth.instance;
 
   void _openAddExpenseItemOverlay() {
     final state = Provider.of<ExpenseState>(context, listen: false);
@@ -29,7 +32,7 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
-    final userEmail = FirebaseAuth.instance.currentUser?.email ?? 'No Email';
+    final userEmail = _auth.currentUser?.email ?? 'No Email';
 
     return Scaffold(
       appBar: AppBar(
@@ -48,7 +51,7 @@ class _ExpensesState extends State<Expenses> {
           ),
           IconButton(
             onPressed: () {
-              FirebaseAuth.instance.signOut();
+              _auth.signOut();
             },
             icon: const Icon(Icons.logout_rounded),
           ),

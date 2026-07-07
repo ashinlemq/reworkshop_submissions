@@ -2,8 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:travel_expenses/expenses.dart';
 import 'package:travel_expenses/providers/expenses_provider.dart';
+
+class MockUser extends Fake implements User {
+  @override
+  String get email => 'test@example.com';
+}
+
+class MockFirebaseAuth extends Fake implements FirebaseAuth {
+  @override
+  User? get currentUser => MockUser();
+
+  @override
+  Future<void> signOut() async {}
+}
 
 void main() {
   setUp(() {
@@ -14,8 +28,8 @@ void main() {
   Widget testExpenseWidget() {
     return ChangeNotifierProvider<ExpenseState>(
       create: (context) => ExpenseState(),
-      child: const MaterialApp(
-        home: Expenses(),
+      child: MaterialApp(
+        home: Expenses(auth: MockFirebaseAuth()),
       ),
     );
   }
