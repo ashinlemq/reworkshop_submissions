@@ -3,6 +3,10 @@ import 'package:travel_expenses/expenses.dart';
 import 'package:travel_expenses/providers/expenses_provider.dart';
 import 'package:provider/provider.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'package:travel_expenses/widgets/firebase/auth.dart';
+import 'firebase_options.dart';
+
 var myLightColorScheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(255, 161, 109, 170),
 );
@@ -12,7 +16,15 @@ var myDarkColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
 );
 
-void main() {
+
+
+Future<void> main() async {
+
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   runApp(
     ChangeNotifierProvider(
       create: (context) => ExpenseState(),
@@ -50,7 +62,7 @@ void main() {
             ),
           ),
         ),
-        home: const Expenses(),
+        home: Auth(),
       ),
     ),
   );
