@@ -9,17 +9,14 @@ class ExpenseItem extends StatelessWidget {
   final Expense expense;
 
   void _showDeleteConfirmation(BuildContext context) {
-    final isDarkMode = Theme.of(context).brightness == Brightness.dark;
     showDialog(
       context: context,
       builder: (dialogContext) => AlertDialog(
         title: Text(
           'Confirm Deletion',
-          style: TextStyle(color: isDarkMode ? Colors.white : null),
         ),
         content: Text(
           'Are you sure you want to remove this expense?',
-          style: TextStyle(color: isDarkMode ? Colors.white : null),
         ),
         actions: [
           TextButton(

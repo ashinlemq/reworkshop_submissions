@@ -35,7 +35,7 @@ class _AuthState extends State<Auth> {
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 24.0),
           child: SizedBox(
-            width: 320, // Prevents the inputs and buttons from stretching too wide
+            width: 320,
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
@@ -70,7 +70,6 @@ class _AuthState extends State<Auth> {
                   onPressed: () async {
                     try {
                       await widget._auth.signInWithEmailAndPassword(
-                        // trim to ignore accidental whitespace
                         email: emailController.text.trim(),
                         password: passwordController.text.trim(),
                       );

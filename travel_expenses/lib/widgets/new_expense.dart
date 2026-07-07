@@ -78,8 +78,6 @@ class _NewExpenseState extends State<NewExpense> {
 
   @override
   Widget build(BuildContext context) {
-    final isDarkMode =
-        MediaQuery.of(context).platformBrightness == Brightness.dark;
 
     return Padding(
       padding: EdgeInsets.all(20),
@@ -110,7 +108,6 @@ class _NewExpenseState extends State<NewExpense> {
                     _chosenDate == null
                         ? 'Pick Date'
                         : formatter.format(_chosenDate!),
-                    style: TextStyle(color: isDarkMode ? Colors.white : null),
                   ),
                   IconButton(
                     onPressed: _openDatePicker,
@@ -125,7 +122,6 @@ class _NewExpenseState extends State<NewExpense> {
             children: [
               Text(
                 "Expense Category",
-                style: TextStyle(color: isDarkMode ? Colors.white : null),
               ),
               DropdownButton<Category>(
                 value: _chosenCategory,
@@ -135,9 +131,6 @@ class _NewExpenseState extends State<NewExpense> {
                         value: category,
                         child: Text(
                           category.name.toUpperCase(),
-                          style: TextStyle(
-                            color: isDarkMode ? Colors.white : null,
-                          ),
                         ),
                       ),
                     )
