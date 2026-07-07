@@ -16,49 +16,46 @@ var myDarkColorScheme = ColorScheme.fromSeed(
   brightness: Brightness.dark,
 );
 
-
-
 Future<void> main() async {
-
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  final ThemeData baseLightTheme = ThemeData(colorScheme: myLightColorScheme);
+  final ThemeData baseDarkTheme = ThemeData(colorScheme: myDarkColorScheme);
 
   runApp(
     ChangeNotifierProvider(
       create: (context) => ExpenseState(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        darkTheme: ThemeData.dark().copyWith(
-          colorScheme: myDarkColorScheme,
-          appBarTheme: const AppBarTheme().copyWith(
-            backgroundColor: myDarkColorScheme.onPrimaryContainer,
-            foregroundColor: myDarkColorScheme.primaryContainer,
-          ),
-          cardTheme: const CardThemeData().copyWith(
-            color: myDarkColorScheme.secondaryContainer,
-          ),
-          textTheme: const TextTheme().copyWith(
-            headlineSmall: TextStyle(
-              fontSize: 15,
-              color: myDarkColorScheme.onSecondaryContainer,
-            ),
-          ),
-        ),
-        theme: ThemeData().copyWith(
-          colorScheme: myLightColorScheme,
-          appBarTheme: const AppBarTheme().copyWith(
+        themeMode: ThemeMode.system,
+
+        theme: baseLightTheme.copyWith(
+          appBarTheme: AppBarTheme(
             backgroundColor: myLightColorScheme.onPrimaryContainer,
             foregroundColor: myLightColorScheme.primaryContainer,
           ),
-          cardTheme: const CardThemeData().copyWith(
+          cardTheme: CardThemeData(
             color: myLightColorScheme.secondaryContainer,
           ),
-          textTheme: const TextTheme().copyWith(
+          textTheme: baseLightTheme.textTheme.copyWith(
             headlineSmall: TextStyle(
               fontSize: 15,
               color: myLightColorScheme.onSecondaryContainer,
+            ),
+          ),
+        ),
+
+        darkTheme: baseDarkTheme.copyWith(
+          appBarTheme: AppBarTheme(
+            backgroundColor: myDarkColorScheme.onPrimaryContainer,
+            foregroundColor: myDarkColorScheme.primaryContainer,
+          ),
+          cardTheme: CardThemeData(color: myDarkColorScheme.secondaryContainer),
+          textTheme: baseDarkTheme.textTheme.copyWith(
+            headlineSmall: TextStyle(
+              fontSize: 15,
+              color: myDarkColorScheme.onSecondaryContainer,
             ),
           ),
         ),
