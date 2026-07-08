@@ -29,7 +29,7 @@ class _AuthState extends State<Auth> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text("Travel Expenses"),
+        title: const Text("Travel Expenses"),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -68,7 +68,16 @@ class _AuthState extends State<Auth> {
                 const SizedBox(height: 16),
                 TextButton(
                   onPressed: () async {
+                    // Block login if passwords do not match
+                    if (passwordController.text != repeatPasswordController.text) {
+                      setState(() {
+                        errorMessage = "Passwords do not match.";
+                      });
+                      return;
+                    }
+
                     try {
+                      setState(() => errorMessage = null); // Clear old errors
                       await widget._auth.signInWithEmailAndPassword(
                         email: emailController.text.trim(),
                         password: passwordController.text.trim(),
@@ -90,7 +99,9 @@ class _AuthState extends State<Auth> {
                       });
                       return;
                     }
+
                     try {
+                      setState(() => errorMessage = null);
                       await widget._auth.createUserWithEmailAndPassword(
                         email: emailController.text.trim(),
                         password: passwordController.text.trim(),
