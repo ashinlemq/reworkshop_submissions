@@ -36,8 +36,10 @@ void main() {
     expect(find.text('Password'), findsOneWidget);
     expect(find.text('Repeat Password'), findsOneWidget);
 
+    // Enter credentials
     await tester.enterText(find.byType(TextField).at(0), 'brokenemail');
     await tester.enterText(find.byType(TextField).at(1), '123456');
+    await tester.enterText(find.byType(TextField).at(2), '123456');
 
     await tester.tap(find.text('Login'));
     await tester.pump();
