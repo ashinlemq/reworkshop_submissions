@@ -38,8 +38,9 @@ class _ExpensesState extends State<Expenses> {
       appBar: AppBar(
         leadingWidth: 120,
         leading: Center(
-          child: Padding(padding: const EdgeInsets.only(left: 8.0),
-          child: Text(userEmail),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8.0),
+            child: Text(userEmail),
           ),
         ),
         centerTitle: true,
@@ -66,7 +67,27 @@ class _ExpensesState extends State<Expenses> {
                 children: [
                   Chart(expenses: expensesState.expenses),
                   Expanded(
-                    child: ExpensesList(allExpenses: expensesState.expenses),
+                    child: ExpensesList(
+                      allExpenses: expensesState.expenses,
+                      onRemoveExpense: (expense) {
+                        expensesState.removeExpense(expense.id);
+
+                        ScaffoldMessenger.of(context).clearSnackBars();
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                                content: Text('${expense.name} deleted.'),
+                                duration: const Duration(seconds: 3),
+                                action: SnackBarAction(
+                                    label: 'Undo',
+                                    onPressed: () {
+                                      expensesState.addExpense(expense);
+                                    },
+                                ),
+                            ),
+                        );
+                      },
+                    ),
                   ),
                 ],
               );
