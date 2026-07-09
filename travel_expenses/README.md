@@ -5,6 +5,8 @@ Sample login:
 email: test@mail.com
 password: 123456
 
+> Note: During testing, sometimes the android emulator lost internet connection. Disabling wifi on the emulator, and using data on the emulator fixed this for me. However, that may just be some system config issue on my end.
+
 ## Week 5
 This week involved the task of creating the basic structure of the app's UI. A noteworthy detail is the documentation for the built-in Flutter widgets were very helpful to get everything right. E.g. the Cards description and how centering the AppBar title is a predictable boolean.
 
